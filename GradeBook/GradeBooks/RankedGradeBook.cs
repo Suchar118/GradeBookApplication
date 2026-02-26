@@ -19,7 +19,6 @@ namespace GradeBook.GradeBooks
             var threshold = (int)Math.Ceiling(Students.Count * 0.2);
             var grades = Students.OrderByDescending(s => s.AverageGrade).Select(s => s.AverageGrade).ToList();
 
-            // Count how many students have a higher average than the provided grade
             var higherCount = grades.Count(g => g > averageGrade);
 
             if (higherCount < threshold)
@@ -32,6 +31,17 @@ namespace GradeBook.GradeBooks
                 return 'D';
             else
                 return 'F';
+        }
+
+        public override void CalculateStatistics()
+        {
+            if (Students.Count < 5)
+            {
+                Console.WriteLine("Ranked grading requires at least 5 students.");
+                return;
+            }
+
+            base.CalculateStatistics();
         }
     }
 }
